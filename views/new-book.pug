@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title Add New Book
+  body
+    h1 Add New Book Details
+    form(action="/" + book.isbn + "?_method=PUT" method="POST")
+      input(type="hidden" name="_method" value="PUT")
+      div
+        label(for="title") Title:
+        input(type="text" name="title" id="title" value=book.title required)
+      div
+        label(for="subtitle") Subtitle:
+        input(type="text" name="subtitle" id="subtitle" value=book.subtitle)
+      div
+        label(for="author") Author:
+        input(type="text" name="author" id="author" value=book.author required)
+      div
+        label(for="published") Published Date:
+        input(type="date" name="published" id="published" value=book.published)
+      div
+        label(for="publisher") Publisher:
+        input(type="text" name="publisher" id="publisher" value=book.publisher)
+      div
+        label(for="pages") Pages:
+        input(type="number" name="pages" id="pages" value=book.pages required)
+      div
+        label(for="description") Description:
+        textarea(name="description" id="description" rows="5" required)= book.description
+      div
+        button(type="submit") Add Book
+    a(href='/') Back to Book List
