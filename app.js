@@ -1,8 +1,8 @@
 const Book = require("../models/Books");
 const path = require("path");
 const methodOverride = require("method-override");
-var express = require("express");
-var mongoose = require("mongoose");
+const express = require("express");
+const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
 
@@ -26,25 +26,47 @@ app.get("/new", function (req, res) {
   res.render("new-book");
 });
 // add new book
-app.post("/new", async function (req, res) {
+app.post("/", async function (req, res) {
   await Book.create(req.body);
   res.redirect("/");
 });
-// display selected book
+// delete book from list
 app.delete("/:id", async function (req, res) {
   await Book.deleteOne({isbn: req.params.id});
   res.redirect("/");
 });
-//edit book in list
+//book details
+app.get("/book-details/:id", async function (req, res) {
+  const isbn = req.params.id;
+  const book = await Book.findOne({isbn: isbn});
+  if (book) {
+    res.render("book-details", {book});
+  }else {
+    res.status(404).send("book not found");
+  }
+});
+//update book in list
 app.put("/:id", async function (req, res) {
     const isbn = req.params.id;
     await Book.findOneAndUpdate({isbn: isbn}, req.body);
     res.redirect
 });
-//removes book from list
-router.post("/delete/:id", async function (req, res, next) {
-  await Book.deleteOne({isbn: req.params.id});
-  res.redirect("/");
-});
+//edit book from list
+app.get("/edit/:id", async function (req, res) {
+  try {
+    const isbn = req.params.id; 
+    const book = await Book.findOne({isbn: isbn});
 
-module.exports = router;
+    if (book) {
+      res.render("edit-book", {book});
+    }else{
+      res.status(404).send("book not found");
+    }
+  }catch (err) {
+    console.error(err);
+    res.status(500).send("server error");
+  }
+  });
+
+//start server
+app.listen(3000, () => console.log("server running on port 3000"));
