@@ -4,6 +4,7 @@ html
         title Book List
     body
         h1 Books List
+        a(href='/new') Add New Book
         ul 
             each book in books 
                 li 
@@ -12,5 +13,4 @@ html
                         a(href="/edit/" + book.isbn) Edit 
                     form(action="/" + book.isbn + "?_method=DELETE" method="POST" style="display:inline")
                     button(type="submit") Delete 
-        p a(href="/new") Add New Book 
         

@@ -4,29 +4,32 @@ html
     title Add New Book
   body
     h1 Add New Book Details
-    form(action="/" + book.isbn + "?_method=PUT" method="POST")
-      input(type="hidden" name="_method" value="PUT")
+    form(action="/" method="POST")
+      div 
+        label(for="isbn") ISBN: 
+        input(type="text" name="isbn" id="isbn" required)
+
       div
         label(for="title") Title:
-        input(type="text" name="title" id="title" value=book.title required)
+        input(type="text" name="title" id="title" required)
       div
         label(for="subtitle") Subtitle:
-        input(type="text" name="subtitle" id="subtitle" value=book.subtitle)
+        input(type="text" name="subtitle" id="subtitle")
       div
         label(for="author") Author:
-        input(type="text" name="author" id="author" value=book.author required)
+        input(type="text" name="author" id="author" required)
       div
         label(for="published") Published Date:
-        input(type="date" name="published" id="published" value=book.published)
+        input(type="date" name="published" id="published" required)
       div
         label(for="publisher") Publisher:
-        input(type="text" name="publisher" id="publisher" value=book.publisher)
+        input(type="text" name="publisher" id="publisher" required)
       div
         label(for="pages") Pages:
-        input(type="number" name="pages" id="pages" value=book.pages required)
+        input(type="number" name="pages" id="pages" required)
       div
         label(for="description") Description:
-        textarea(name="description" id="description" rows="5" required)= book.description
+        textarea(name="description" id="description" rows="5" required)
       div
         button(type="submit") Add Book
     a(href='/') Back to Book List
